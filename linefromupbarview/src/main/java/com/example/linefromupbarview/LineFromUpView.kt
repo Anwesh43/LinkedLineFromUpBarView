@@ -117,4 +117,45 @@ class LineFromUpView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    data class LFUNode(var i : Int, val state : State = State()) {
+
+        private var next : LFUNode? = null
+        private var prev : LFUNode? = null
+
+        init {
+            addNeighbor()
+        }
+
+        fun addNeighbor() {
+            if (i < colors.size - 1) {
+                next = LFUNode(i + 1)
+                next?.prev = this
+            }
+        }
+
+        fun draw(canvas : Canvas,  paint : Paint) {
+            canvas.drawLFUNode(i, state.scale, paint)
+        }
+
+        fun update(cb : (Float) -> Unit) {
+            state.update(cb)
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            state.startUpdating(cb)
+        }
+
+        fun getNext(dir : Int, cb : () -> Unit) : LFUNode {
+            var curr : LFUNode? = prev
+            if (dir == 1) {
+                curr = next
+            }
+            if (curr != null) {
+                return curr
+            }
+            cb()
+            return this
+        }
+    }
 }
