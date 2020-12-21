@@ -39,7 +39,8 @@ fun Canvas.drawLineFromUp(scale : Float, w : Float, h : Float, paint : Paint) {
     translate(w / 2, h)
     for (j in 0..1) {
         save()
-        drawLine(-size, -h * (1 - sf1) - size / 2, -size, 0f, paint)
+        scale(1f - 2 * j, 1f)
+        drawLine(-size, -h * (1 - sf1) - size / 2, -size, -h * (1 - sf1), paint)
         drawRect(RectF(-size, -size / 2, -size + size * sf2, 0f), paint)
         restore()
     }
