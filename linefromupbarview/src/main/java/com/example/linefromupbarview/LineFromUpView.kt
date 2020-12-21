@@ -206,4 +206,13 @@ class LineFromUpView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : LineFromUpView {
+            val view : LineFromUpView = LineFromUpView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
